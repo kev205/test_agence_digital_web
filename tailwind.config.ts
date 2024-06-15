@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+const withMT = require("@material-tailwind/react/utils/withMT");
 
 const config: Config = {
   content: [
@@ -23,5 +24,6 @@ const config: Config = {
     aspectRatio: false,
   },
   plugins: [require("@tailwindcss/aspect-ratio"), require("flowbite/plugin")],
+  darkMode: "class",
 };
-export default config;
+export default withMT(config);

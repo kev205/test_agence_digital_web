@@ -52,7 +52,11 @@ export default function Navbar() {
             onClick={openCart}
             className="p-1 rounded-md hover:bg-slate-900 text-slate-700 hover:text-slate-300 relative transition duration-200 ease-in-out"
           >
-            <ShoppingCartIcon className="h-6 w-6" strokeWidth={2} />
+            <ShoppingCartIcon
+              className="h-6 w-6"
+              strokeWidth={2}
+              color="white"
+            />
             <Label item={total} />
           </button>
         </div>

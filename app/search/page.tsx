@@ -1,6 +1,8 @@
 import SearchResults from "@/components/ui/SearchResults";
+import { ListProductsSkeleton } from "@/components/ui/skeletons";
+import { Suspense } from "react";
 
-export default function Page({
+export default async function Page({
   searchParams,
 }: {
   searchParams?: {
@@ -13,7 +15,9 @@ export default function Page({
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <SearchResults query={query} skip={currentPage} />
+      <Suspense fallback={<ListProductsSkeleton />}>
+        <SearchResults query={query} skip={currentPage} />
+      </Suspense>
     </main>
   );
 }

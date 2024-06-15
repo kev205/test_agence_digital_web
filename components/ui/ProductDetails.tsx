@@ -1,26 +1,13 @@
-"use client";
-
-import { classNames } from "@/lib/classUtils";
-import { StarIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import Link from "next/link";
 import PriceView from "./PriceView";
+import AddToCartButton from "./AddToCartButton";
 import ListReviews from "./ListReviews";
-import { useCart } from "../context/CartContext";
-import { useCallback, useState } from "react";
 
-const reviews = { href: "#", average: 4, totalCount: 117 };
-
-export default function ProductDetails({ product }: { product: any }) {
-  const { addProduct } = useCart();
-
-  const [open, setOpen] = useState(false);
-
-  const close = () => setOpen(false);
-
-  const add = useCallback(() => {
-    addProduct && addProduct(product);
-  }, [product]);
+export default async function ProductDetails({ id }: { id: string }) {
+  const product: void | any = await fetch(
+    `https://dummyjson.com/products/${id}`
+  ).then((res) => res.json());
 
   return (
     <div className="bg-white">
@@ -83,7 +70,6 @@ export default function ProductDetails({ product }: { product: any }) {
             ))}
         </div>
 
-        {/* Product info */}
         <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
           <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
             <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
@@ -97,74 +83,11 @@ export default function ProductDetails({ product }: { product: any }) {
               price={product.price}
               discountPercentage={product.discountPercentage}
             />
-
-            {/* Reviews */}
-            <div className="mt-6">
-              <h3 className="sr-only">Reviews</h3>
-              <div className="flex items-center">
-                <div className="flex items-center">
-                  {[1, 2, 3, 4, 5].map((rating) => (
-                    <StarIcon
-                      key={rating}
-                      className={classNames(
-                        product.rating > rating
-                          ? "text-gray-900"
-                          : "text-gray-200",
-                        "h-5 w-5 flex-shrink-0"
-                      )}
-                      aria-hidden="true"
-                    />
-                  ))}
-                </div>
-                <p className="sr-only">{reviews.average} out of 5 stars</p>
-                <button
-                  id="toggleReviewsModal"
-                  onClick={() => setOpen(true)}
-                  data-modal-target="default-modal"
-                  data-modal-toggle="default-modal"
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
-                >
-                  <svg
-                    className="w-6 h-6 mr-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                    ></path>
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                    ></path>
-                  </svg>
-                  Reviews
-                </button>
-                <ListReviews
-                  reviews={product.reviews}
-                  open={open}
-                  close={close}
-                />
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              onClick={add}
-            >
-              Add to cart
-            </button>
+            <ListReviews product={product} />
+            <AddToCartButton product={product} />
           </div>
 
           <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
-            {/* Description and details */}
             <div>
               <h3 className="sr-only">Description</h3>
 

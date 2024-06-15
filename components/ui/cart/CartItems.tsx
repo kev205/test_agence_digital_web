@@ -75,6 +75,18 @@ export default function Cart() {
 
                       <div className="mt-8">
                         <div className="flow-root">
+                          {!products.length && (
+                            <div className="flex items-center mt-6 text-center border rounded-lg h-96 dark:border-gray-700">
+                              <div className="flex flex-col w-full max-w-sm px-4 mx-auto">
+                                <h1 className="mt-3 text-lg text-gray-800 dark:text-white">
+                                  No items found
+                                </h1>
+                                <p className="mt-2 text-gray-500 dark:text-gray-400">
+                                  Start shopping
+                                </p>
+                              </div>
+                            </div>
+                          )}
                           <ul
                             role="list"
                             className="-my-6 divide-y divide-gray-200"
@@ -88,13 +100,16 @@ export default function Cart() {
                                     className="h-full w-full object-cover object-center"
                                   />
                                 </div>
-
                                 <div className="ml-4 flex flex-1 flex-col">
                                   <div>
-                                    <div className="flex justify-between text-base font-medium text-gray-900">
+                                    <p className="text-xs leading-3 text-gray-800 dark:text-white md:pt-0 pt-4">
+                                      {product.sku}
+                                    </p>
+                                    <div className="flex justify-between text-base font-medium text-gray-900 pt-1">
                                       <h3>
                                         <Link
                                           href={`/category/${product.category}/${product.id}`}
+                                          className="text-base font-black leading-none text-gray-800 dark:text-white"
                                         >
                                           {product.title}
                                         </Link>
@@ -108,12 +123,14 @@ export default function Cart() {
                                         hidebadge
                                       />
                                     </div>
+                                    <p className="text-xs leading-3 text-gray-600 dark:text-white pt-1">
+                                      {product.brand}
+                                    </p>
+                                    <p className="text-xs leading-3 text-gray-600 dark:text-white pt-2">
+                                      {product.warrantyInformation}
+                                    </p>
                                   </div>
-                                  <div className="flex flex-1 items-end justify-between text-sm">
-                                    {/* <p className="text-gray-500">
-                                      Qty {product.quantity}
-                                    </p> */}
-
+                                  <div className="flex flex-1 items-end justify-between text-sm pt-2">
                                     <div className="flex">
                                       <button
                                         type="button"
@@ -145,7 +162,7 @@ export default function Cart() {
                           onClick={saveCart}
                           className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                         >
-                          save
+                          Save Cart
                         </button>
                       </div>
                       <div className="mt-6 flex justify-center text-center text-sm text-gray-500">

@@ -9,7 +9,7 @@ export default async function Page() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="bg-white shadow-md rounded-md p-6">
+      <div className="w-full bg-white shadow-md rounded-md p-6">
         <h2 className="text-2xl font-bold mb-4">Your Carts</h2>
         <div className="space-y-4">
           {carts?.map((cart) => (

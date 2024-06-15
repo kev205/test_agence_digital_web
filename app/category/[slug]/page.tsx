@@ -1,16 +1,13 @@
 import ListProducts from "@/components/ui/home/ListProducts";
-import React from "react";
+import { ListProductsSkeleton } from "@/components/ui/skeletons";
+import React, { Suspense } from "react";
 
-export default function Page({
-  params,
-  searchParams,
-}: {
-  params: { slug: string };
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
+export default async function Page({ params }: { params: { slug: string } }) {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <ListProducts categorySlug={params.slug} />
+      <Suspense fallback={<ListProductsSkeleton />}>
+        <ListProducts categorySlug={params.slug} />
+      </Suspense>
     </main>
   );
 }
