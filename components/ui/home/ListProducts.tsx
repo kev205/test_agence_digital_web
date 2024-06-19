@@ -1,9 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import PriceView from "../PriceView";
+import { capitalizeString } from "@/lib/stringUtils";
+import { API_BASE_URL } from "@/lib/api";
 
 export default async function ListProducts({
-  categorySlug,
+  categorySlug: category,
   skip,
   limit,
 }: {
@@ -11,10 +13,8 @@ export default async function ListProducts({
   skip?: number;
   limit?: number;
 }) {
-  const category = categorySlug ?? "smartphones";
-
   const products: void | any[] = await fetch(
-    `https://dummyjson.com/products/category/${category}?select=id,title,thumbnail,category,brand,price,discountPercentage` +
+    `${API_BASE_URL}/products/category/${category}?select=id,title,thumbnail,category,brand,price,discountPercentage` +
       (limit ? `&limit=${limit}` : "") +
       (skip ? `&skip=${skip}` : "")
   )
@@ -24,7 +24,10 @@ export default async function ListProducts({
   return (
     <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
       <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-        {category}
+        {category
+          ?.split("-")
+          .map((str) => capitalizeString(str))
+          .join(" ")}
       </h2>
       <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
         {products?.length ? (
@@ -32,7 +35,7 @@ export default async function ListProducts({
             <Link
               key={product.id}
               className="group relative"
-              href={`/category/${product.category}/${product.id}`}
+              href={`/category/${product.category}/product/${product.id}`}
             >
               <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
                 <Image
@@ -65,13 +68,13 @@ export default async function ListProducts({
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
-                  stroke-width="1.5"
+                  strokeWidth="1.5"
                   stroke="currentColor"
                   className="w-6 h-6"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
                   />
                 </svg>

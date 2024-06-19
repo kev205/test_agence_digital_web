@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import PriceView from "./PriceView";
+import { API_BASE_URL } from "@/lib/api";
 
 export default async function SearchResults({
   query,
@@ -12,7 +13,7 @@ export default async function SearchResults({
   limit?: number;
 }) {
   const products: void | any[] = await fetch(
-    `https://dummyjson.com/products/search?select=id,title,thumbnail,category,brand,price,discountPercentage` +
+    `${API_BASE_URL}/products/search?select=id,title,thumbnail,category,brand,price,discountPercentage` +
       (query ? `&q=${query}` : "") +
       (limit ? `&limit=${limit}` : "") +
       (skip ? `&skip=${skip}` : "")
@@ -28,7 +29,7 @@ export default async function SearchResults({
             <Link
               key={product.id}
               className="group relative"
-              href={`/category/${product.category}/${product.id}`}
+              href={`/category/${product.category}/product/${product.id}`}
             >
               <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
                 <Image
@@ -61,13 +62,13 @@ export default async function SearchResults({
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
-                  stroke-width="1.5"
+                  strokeWidth="1.5"
                   stroke="currentColor"
                   className="w-6 h-6"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
                   />
                 </svg>

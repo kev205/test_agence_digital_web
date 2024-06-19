@@ -108,7 +108,7 @@ export default function Cart() {
                                     <div className="flex justify-between text-base font-medium text-gray-900 pt-1">
                                       <h3>
                                         <Link
-                                          href={`/category/${product.category}/${product.id}`}
+                                          href={`/category/${product.category}/product/${product.id}`}
                                           className="text-base font-black leading-none text-gray-800 dark:text-white"
                                         >
                                           {product.title}

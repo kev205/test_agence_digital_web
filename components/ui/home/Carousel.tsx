@@ -2,6 +2,7 @@
 
 import { Carousel as MaterialCarousel } from "@material-tailwind/react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Carousel({ products }: { products: any[] }) {
   return (
@@ -22,7 +23,11 @@ export default function Carousel({ products }: { products: any[] }) {
       )}
     >
       {products?.map((product) => (
-        <div key={product.id} className="flex-row relative h-full w-full">
+        <Link
+          key={product.id}
+          className="flex-row relative h-full w-full"
+          href={`/category/${product.category}/product/${product.id}`}
+        >
           <Image
             src={product.thumbnail}
             alt={product.title}
@@ -34,7 +39,7 @@ export default function Carousel({ products }: { products: any[] }) {
             <p className="text-lg font-bold">{product.title}</p>
             <p className="text-sm mb-10 leading-none">{product.description}</p>
           </div>
-        </div>
+        </Link>
       ))}
     </MaterialCarousel>
   );

@@ -7,3 +7,7 @@ export function slugify(str: string) {
     .replace(/-+/g, "-");
   return str;
 }
+
+export function capitalizeString(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}

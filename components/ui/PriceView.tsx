@@ -1,4 +1,5 @@
 import { classNames } from "@/lib/classUtils";
+import { computePrice } from "@/lib/price";
 
 export default function PriceView({
   price,
@@ -13,15 +14,6 @@ export default function PriceView({
 }) {
   return (
     <div className="inline-flex items-center space-x-2">
-      {!!discountPercentage && (
-        <span
-          className={`text-gray-900 font-bold ${
-            textClass ? textClass : "text-lg"
-          }`}
-        >
-          ${(price - (price * discountPercentage) / 100).toFixed(2)}
-        </span>
-      )}
       <span
         className={classNames(
           discountPercentage ? "line-through" : "",
@@ -30,6 +22,15 @@ export default function PriceView({
       >
         ${price}
       </span>
+      {!!discountPercentage && (
+        <span
+          className={`text-gray-900 font-bold ${
+            textClass ? textClass : "text-lg"
+          }`}
+        >
+          ${computePrice(price, discountPercentage)}
+        </span>
+      )}
       {!hidebadge && (
         <span className="bg-red-500 text-white px-2 py-1 rounded-md text-sm font-medium">
           {discountPercentage}% Off

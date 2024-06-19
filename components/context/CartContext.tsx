@@ -9,6 +9,7 @@ import {
   useState,
 } from "react";
 import Cart from "../ui/cart/CartItems";
+import { API_BASE_URL } from "@/lib/api";
 
 export const CartContext = createContext<{
   products: any[];
@@ -59,7 +60,7 @@ export default function CartProvider({ children }: PropsWithChildren) {
   }, [products]);
 
   const saveCart = useCallback(async () => {
-    return fetch("https://dummyjson.com/carts/add", {
+    return fetch(`${API_BASE_URL}/carts/add`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -71,7 +72,7 @@ export default function CartProvider({ children }: PropsWithChildren) {
 
   const updateCart = useCallback(
     async (id: number) => {
-      return fetch(`https://dummyjson.com/carts/${id}`, {
+      return fetch(`${API_BASE_URL}/carts/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -87,11 +88,11 @@ export default function CartProvider({ children }: PropsWithChildren) {
   );
 
   const getCart = useCallback(async (id: number) => {
-    return fetch(`https://dummyjson.com/carts/${id}`).then((res) => res.json());
+    return fetch(`${API_BASE_URL}/carts/${id}`).then((res) => res.json());
   }, []);
 
   const getCarts = useCallback(async () => {
-    return fetch("https://dummyjson.com/carts/user/5")
+    return fetch(`${API_BASE_URL}/carts/user/5`)
       .then((res) => res.json())
       .then(console.log);
   }, []);

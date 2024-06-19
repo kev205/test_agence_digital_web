@@ -3,10 +3,11 @@ import Link from "next/link";
 import PriceView from "./PriceView";
 import AddToCartButton from "./AddToCartButton";
 import ListReviews from "./ListReviews";
+import { API_BASE_URL } from "@/lib/api";
 
 export default async function ProductDetails({ id }: { id: string }) {
   const product: void | any = await fetch(
-    `https://dummyjson.com/products/${id}`
+    `${API_BASE_URL}/products/${id}`
   ).then((res) => res.json());
 
   return (

@@ -1,11 +1,12 @@
 "use server";
 
+import { API_BASE_URL } from "@/lib/api";
 import { encrypt } from "@/lib/session";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export const login = async (prevState: any, formData: FormData) => {
-  return fetch("https://dummyjson.com/auth/login", {
+  return fetch(`${API_BASE_URL}/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
